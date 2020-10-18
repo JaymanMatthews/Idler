@@ -1,0 +1,95 @@
+body {
+    background-color: #FFA500;   
+}
+.body {
+    height: 100vh;
+    width: 100vw;
+}
+.top {
+    max-height: 30vh;
+    font-weight: bold;
+    font-family: Arial;
+}
+.bottom {
+    clear: both;
+}
+.coincontainer {
+    border: solid 2px;
+    font-size: 15px;
+    margin-right: 2px;
+    margin-top: 2px;
+    float: left;
+    background-color: #FFD700;
+}
+.machinecontainer {
+    display: inline-block;
+    font-size: 12px;
+    border: solid 2px;
+    margin-top: 2px;
+    background-color: #FFD700;
+}
+.currencytext {
+    margin-left: 4px;    
+}
+.currencyinfo {
+    margin-right: 4px;
+}
+.bubuttons {
+    max-width: 100%;
+    border-radius: 12px;
+    display: none;
+    font-family: Arial;
+    font-weight: bold;
+    position: relative;
+}
+.mubuttons {
+    max-width: 100%;
+    border-radius: 12px;
+    font-family: Arial;
+    font-weight: bold;
+    position: relative;
+}
+#bu1 {
+    display: inline-block; 
+}
+.bubuttons:hover {
+    cursor: pointer;
+}
+[data-tab-content] {
+    display: none;
+}
+.active[data-tab-content] {
+    display: block;
+}
+.outer {
+    overflow: hidden;
+}
+.tabs {
+    width: auto;
+    background-color: #000000;
+    color: #F8F8FF;
+    font-weight: bold;
+    font-family: Arial;
+    list-style-type: none;
+    margin-top: 3px;
+    padding: 5px;   
+}
+.tab {
+    display: inline-block;
+    cursor: pointer;
+    font-size: 13px;
+    padding: 4px;
+    margin-right: 5px;
+}
+.tab.active {
+    background-color: #FF7F50;
+    color: #000000;
+    border-radius: 12px;
+}
+.tab:hover {
+    background-color: #FF69B4;
+    color: #000000;
+    border-radius: 12px;
+}
+
+

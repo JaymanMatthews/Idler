@@ -1,0 +1,47 @@
+<html>
+<head>
+</head>
+<body>
+<div class="top">
+    <div class="coincontainer">
+        <span class="currencytext" id="cointext"></span><span class="currencyinfo" id="coins"></span><br><span class="currencytext" id="coinspersectext"></span><span class="currencyinfo" id="coinspersec"></span>
+    </div>
+    <div class="machinecontainer machinecontents">
+        <span class="currencytext" id="machineparttext"></span><span class="currencyinfo" id="machineparts"></span><br><span class="currencytext" id="machinepartspersectext"></span><span class="currencyinfo" id="machinepartspersec"></span>
+    </div>
+</div>
+<div class="bottom">
+    <div class="outer">
+        <div class="tabcontainer">
+            <ul class="tabs">
+                <li data-tab-target="#cointab" class="active tab" id="coinswitch"></li>
+                <li data-tab-target="#machinetab" class="machinecontents tab" id="machineswitch"></li>
+                <li data-tab-target="#settingstab" class="tab" id="settingsswitch"></li>
+                <li data-tab-target="#changelogtab" class="tab" id="changelogswitch"></li>
+            </ul>
+        </div>
+    </div>
+    <center>
+    <div class="tab-content" id="tabcontent">
+        <div class="active coincontent" id="cointab" data-tab-content>
+            <button class="bubuttons" id="bu1"><span class="butitles" id="bu1title"></span><br><span class="costinfo costtext"></span> <span class="costinfo bucosts" id="bu1cost"></span><span class="effectinfo upgradeeffecttext"></span> <span class="effectinfo upgradeeffect" id="bu1effect"></span></button><br>
+            <button class="bubuttons" id="bu2"><span class="butitles" id="bu2title"></span><br><span class="costinfo costtext"></span> <span class="costinfo bucosts" id="bu2cost"></span><span class="effectinfo upgradeeffecttext"></span> <span class="effectinfo upgradeeffect" id="bu2effect"></span></button><br>
+            <button class="bubuttons" id="bu3"><span class="butitles" id="bu3title"></span><br><span class="costinfo costtext"></span> <span class="costinfo bucosts" id="bu3cost"></span><span class="effectinfo upgradeeffecttext"></span> <span class="effectinfo upgradeeffect" id="bu3effect"></span></button><br>
+            <button class="bubuttons" id="bu4"><span class="butitles" id="bu4title"></span><br><span class="costinfo costtext"></span> <span class="costinfo bucosts" id="bu4cost"></span><span class="effectinfo upgradeeffecttext"></span> <span class="effectinfo upgradeeffect" id="bu4effect"></span></button>
+        </div>
+        <div class="machinecontent" id="machinetab" data-tab-content>
+            <button class="mubuttons" id ="muprestige"><span class="mutitles" id="muprestigetitle"></span><br><span id="nextmachinetext"></span><br>
+        </div>
+        <div class="settingscontent" id="settingstab" data-tab-content>    
+        </div>
+        <div class="changelogcontent" id="changelogtab" data-tab-content>
+        </div>
+    </div>
+</div>
+</center>
+<script src="save.js"></script>
+<script src="tab.js"></script>
+<script src="main.js"></script>
+<link href="style.css" rel="stylesheet"></link>
+</body>
+</html>
