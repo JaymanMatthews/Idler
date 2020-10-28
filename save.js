@@ -1,10 +1,10 @@
 function saveGame() {
-    localStorage.setItem("savedGame", JSON.stringify(gameData));
+    localStorage.setItem("savedGame", JSON.stringify(game));
 };
 
 function loadGame() {
     const savedGame = JSON.parse(localStorage.getItem("savedGame"));
-    gameData = {...gameData, ...savedGame};
+    game = {...game, ...savedGame};
 };
 
 function resetGame() {

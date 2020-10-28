@@ -4,7 +4,7 @@
 <body>
 <div class="top">
     <div class="coincontainer">
-        <span class="currencytext" id="cointext"></span><span class="currencyinfo" id="coins"></span><br><span class="currencytext" id="coinspersectext"></span><span class="currencyinfo" id="coinspersec"></span>
+        <span class="currencytext coininfo" id="cointext"></span><span class="coininfo" id="coins"></span><br><span class="currencytext coininfo" id="coinspersectext"></span><span class="coininfo" id="coinspersec"></span>
     </div>
     <div class="machinecontainer machinecontents">
         <span class="currencytext" id="machineparttext"></span><span class="currencyinfo" id="machineparts"></span><br><span class="currencytext" id="machinepartspersectext"></span><span class="currencyinfo" id="machinepartspersec"></span>
@@ -24,21 +24,24 @@
     <center>
     <div class="tab-content" id="tabcontent">
         <div class="active coincontent" id="cointab" data-tab-content>
-            <button class="bubuttons" id="bu1"><span class="butitles" id="bu1title"></span><br><span class="costinfo costtext"></span> <span class="costinfo bucosts" id="bu1cost"></span><span class="effectinfo upgradeeffecttext"></span> <span class="effectinfo upgradeeffect" id="bu1effect"></span></button><br>
-            <button class="bubuttons" id="bu2"><span class="butitles" id="bu2title"></span><br><span class="costinfo costtext"></span> <span class="costinfo bucosts" id="bu2cost"></span><span class="effectinfo upgradeeffecttext"></span> <span class="effectinfo upgradeeffect" id="bu2effect"></span></button><br>
-            <button class="bubuttons" id="bu3"><span class="butitles" id="bu3title"></span><br><span class="costinfo costtext"></span> <span class="costinfo bucosts" id="bu3cost"></span><span class="effectinfo upgradeeffecttext"></span> <span class="effectinfo upgradeeffect" id="bu3effect"></span></button><br>
-            <button class="bubuttons" id="bu4"><span class="butitles" id="bu4title"></span><br><span class="costinfo costtext"></span> <span class="costinfo bucosts" id="bu4cost"></span><span class="effectinfo upgradeeffecttext"></span> <span class="effectinfo upgradeeffect" id="bu4effect"></span></button>
+            <button class="cubuttons" id="cu1"><span class="cutitles" id="cu1title"></span><br><span class="costinfo costtext"></span><span class="costinfo cucosts" id="cu1cost"></span><span class="effectinfo effecttext"></span><span class="effectinfo cueffect" id="cu1effect"></span></button><br>
+            <button class="cubuttons" id="cu2"><span class="cutitles" id="cu2title"></span><br><span class="costinfo costtext"></span><span class="costinfo cucosts" id="cu2cost"></span><span class="effectinfo effecttext"></span><span class="effectinfo cueffect" id="cu2effect"></span></button><br>
+            <button class="cubuttons" id="cu3"><span class="cutitles" id="cu3title"></span><br><span class="costinfo costtext"></span><span class="costinfo cucosts" id="cu3cost"></span><span class="effectinfo effecttext"></span><span class="effectinfo cueffect" id="cu3effect"></span></button><br>
+            <button class="cubuttons" id="cu4"><span class="cutitles" id="cu4title"></span><br><span class="costinfo costtext"></span><span class="costinfo cucosts" id="cu4cost"></span><span class="effectinfo effecttext"></span><span class="effectinfo cueffect" id="cu4effect"></span></button>
         </div>
         <div class="machinecontent" id="machinetab" data-tab-content>
-            <button class="mubuttons" id ="muprestige"><span class="mutitles" id="muprestigetitle"></span><br><span id="nextmachinetext"></span><br>
+            <button class="mubuttons" id ="muprestige"><span class="mutitles" id="muprestigetitle"></span><br><span id="nextmachinetext"></span></button><br>
         </div>
-        <div class="settingscontent" id="settingstab" data-tab-content>    
+        <div class="settingscontent" id="settingstab" data-tab-content>
+            <button class="settingsbuttons" id ="savebutton"><span class="settingstext"></span></button>
+            <button class="settingsbuttons" id ="resetbutton"><span class="settingstext"></span></button>    
         </div>
         <div class="changelogcontent" id="changelogtab" data-tab-content>
         </div>
     </div>
 </div>
 </center>
+<script src="break_eternity.min.js"></script>
 <script src="save.js"></script>
 <script src="tab.js"></script>
 <script src="main.js"></script>

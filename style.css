@@ -31,16 +31,22 @@ body {
 .currencytext {
     margin-left: 4px;    
 }
-.currencyinfo {
+.coininfo {
     margin-right: 4px;
 }
-.bubuttons {
+.costtext {
+    font-weight: bold;
+}
+.cubuttons {
     max-width: 100%;
     border-radius: 12px;
     display: none;
     font-family: Arial;
     font-weight: bold;
     position: relative;
+}
+.cutitles {
+    font-weight: bold;
 }
 .mubuttons {
     max-width: 100%;
@@ -49,10 +55,25 @@ body {
     font-weight: bold;
     position: relative;
 }
-#bu1 {
+.settingsbuttons {
+    max-width: 100%;
+    background-color: #000000;
+    color: #F8F8FF;
+    border-radius: 12px;
+    font-family: Arial;
+    font-weight: bold;
+    position: relative;
+}
+#cu1 {
     display: inline-block; 
 }
-.bubuttons:hover {
+.effecttext {
+    display: none;
+}
+.cueffect {
+    display: none;
+}
+.cubuttons:hover {
     cursor: pointer;
 }
 [data-tab-content] {
