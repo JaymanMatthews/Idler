@@ -11,7 +11,19 @@ body {
     font-family: Arial;
 }
 .bottom {
+    position: relative;
     clear: both;
+}
+.credits {
+    font-weight: bold;
+    font-family: Arial;
+    font-size: 14px;
+}
+.creditsdiv {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    margin-left: 5px;
 }
 .coincontainer {
     border: solid 2px;
@@ -35,6 +47,8 @@ body {
     border-radius: 12px;
     border: solid 3px;
     display: none;
+    float: left;
+    clear: both;
     font-family: Arial;
     font-weight: bold;
     position: relative;
@@ -61,6 +75,7 @@ body {
     font-family: Arial;
     font-weight: bold;
     position: relative;
+    margin-bottom: 5px;
 }
 #cu1 {
     display: inline-block;
@@ -88,6 +103,7 @@ body {
     font-family: Arial;
     list-style-type: none;
     margin-top: 3px;
+    margin-bottom: 5px;
     padding: 5px;
 }
 .tab {

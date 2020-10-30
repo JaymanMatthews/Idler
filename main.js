@@ -60,7 +60,9 @@ var mu = {
         },
         perSecShow = function() {
             return makeVisible(5, mu.isUnlocked(), null, constants.value[12][3]);
-
+        },
+        tabShow = function() {
+            return makeVisible(5, mu.isUnlocked(), null, constants.value[6][1]);
         }
     ]
 };
@@ -81,7 +83,6 @@ function tick() {
         updateDisplay();
 }};
 
-
 function updateGame() {
     game.coinUpgEffect[3] = (game.coinUpgUnlocked[3]) ? cu.effect(0).add(10).log10() : cu.effect(3);
     game.coinUpgEffect[2] = (game.coinUpgUnlocked[2]) ? constants.base[2].times(cu.effect(3)) : cu.effect(2);
@@ -97,7 +98,7 @@ function updateDisplay() {
     (game.coinUpgUnlocked[3]) ? constants.value[1][2].innerText = "UP 3: Raise UP 1's effect to the power of " + scientificNotation(cu.effect(2)) + '.' : null;
     for (i = 0; i < 4; i++) { for (j = 0; j < cu.display.length; j++) { cu.display[j](i); }};
     mu.isDisplayed();
-    for (i = 0; i < 5; i++) { mu.display[i](); };
+    for (i = 0; i < 6; i++) { mu.display[i](); };
 };
 
 function initUI() {
@@ -108,6 +109,7 @@ function initUI() {
     const tabTitles = new Array('Coin Upgrades', 'Machine Upgrades', 'Settings', 'Changelog');
     const settingsTitles = new Array('Save Game', 'Reset Game');
     const settingsMethods = new Array(saveGame(), resetGame());
+    const creditsText = new Array('Developed by Jayman Matthews |', 'Github');
 
     constants.value[0] = 'Idle Game';
     document.title = constants.value[0];
@@ -145,6 +147,9 @@ function initUI() {
 
     constants.value[12] = document.getElementsByClassName('machineinfo');
     for (i = 0; i < 4; i++) { constants.value[12][i].innerText = machineInfo[i]; };
+
+    constants.value[13] = document.getElementsByClassName('credits');
+    for (i = 0; i < 2; i++) { constants.value[13][i].innerText = creditsText[i]; };
 };
 
 function coinUpgrade(i) {
