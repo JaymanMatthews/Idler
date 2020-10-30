@@ -1,4 +1,4 @@
-var game = { coins: 100, coinsPerSec: 1, coinUpgUnlocked: [false, false, false, false], coinUpgEffect: [1, 2, 1.25, 1] };
+var game = { coins: 0, coinsPerSec: 1, coinUpgUnlocked: [false, false, false, false], coinUpgEffect: [1, 2, 1.25, 1] };
 
 var cu = {
     cost: function(i) {
