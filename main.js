@@ -1,4 +1,4 @@
-var game = { coins: 0, coinsPerSec: 1, coinUpgUnlocked: [false, false, false, false], coinUpgEffect: [1, 2, 1.25, 1] };
+var game = { coins: 900, machineParts: 0, coinsPerSec: 1, machinePartsPerSec: 0, coinUpgUnlocked: [false, false, false, false], muUnlocked: false, coinUpgEffect: [1, 2, 1.25, 1] };
 
 var cu = {
     cost: function(i) {
@@ -9,37 +9,63 @@ var cu = {
     },
     canBuy: function(i) {
         return game.coins >= constants.coinUpgCost[i];
-    }
+    },
+    display: [
+        costTextHide = function(i) {
+            return makeVisible(4, game.coinUpgUnlocked[i], true, constants.value[2][i]);
+        },
+        costHide = function(i) {
+            return makeVisible(4, game.coinUpgUnlocked[i], true, constants.value[3][i]);
+        },
+        effectTextShow = function(i) {
+            return makeVisible(3, game.coinUpgUnlocked[i], true, constants.value[9][i]);
+        },
+        effectShow = function(i) {
+            return makeVisible(3, game.coinUpgUnlocked[i], true, constants.value[10][i]);
+        },
+        nextShow = function(i) {
+            return (i < 3) ? makeVisible(3, game.coinUpgUnlocked[i], true, constants.value[5][i + 1]) : null;
+        },
+        textColor = function(i) {
+            return (game.coinUpgUnlocked[i]) ? constants.value[5][i].style.color = '#FFFFFF' : constants.value[5][i].style.color = '#000000';
+        },
+        borderColor = function(i) {
+            return (game.coinUpgUnlocked[i]) ? constants.value[5][i].style.borderColor = '#FFFFFF' : constants.value[5][i].style.borderColor = '000000';
+        },
+        color = function(i) {
+            return (game.coinUpgUnlocked[i]) ? constants.value[5][i].style.backgroundColor = '#000000' : (cu.canBuy(i)) ? constants.value[5][i].style.backgroundColor = '#c4c4c4' : constants.value[5][i].style.backgroundColor = '#FFFFFF';
+        }
+    ]
+};
+
+var mu = {
+    isUnlocked: function() {
+        return game.coins >= 1000 || game.muUnlocked;
+    },
+    isDisplayed: function() {
+        if (game.coins >= 1000) { game.muUnlocked = true; };
+    },
+    display: [
+        containerShow = function() {
+            return makeVisible(5, mu.isUnlocked(), null, constants.value[11][0]);
+        },
+        partTextShow = function() {
+            return makeVisible(5, mu.isUnlocked(), null, constants.value[12][0]);
+        },
+        partsShow = function() {
+            return makeVisible(5, mu.isUnlocked(), null, constants.value[12][1]);
+        },
+        perSecTextShow = function() {
+            return makeVisible(5, mu.isUnlocked(), null, constants.value[12][2]);
+        },
+        perSecShow = function() {
+            return makeVisible(5, mu.isUnlocked(), null, constants.value[12][3]);
+
+        }
+    ]
 };
 
 var constants = { updateInterval: 33, saveInterval: 15000, coinUpgCost: [10, 50, 150, 500], base: [new Decimal(game.coinsPerSec), new Decimal(cu.effect(0)), new Decimal(cu.effect(2))], value: [] };
-
-var cuDisplay = [
-    costTextHide = function(i) {
-        return (game.coinUpgUnlocked[i]) ? makeVisible(4, game.coinUpgUnlocked[i], true, constants.value[2][i]) : null;
-    },
-    costHide = function(i) {
-        return (game.coinUpgUnlocked[i]) ? makeVisible(4, game.coinUpgUnlocked[i], true, constants.value[3][i]) : null;
-    },
-    effectTextShow = function(i) {
-        return (game.coinUpgUnlocked[i]) ? makeVisible(3, game.coinUpgUnlocked[i], true, constants.value[9][i]) : null;
-    },
-    effectShow = function(i) {
-        return (game.coinUpgUnlocked[i]) ? makeVisible(3, game.coinUpgUnlocked[i], true, constants.value[10][i]) : null;
-    },
-    nextShow = function(i) {
-        return (game.coinUpgUnlocked[i]) ? (i < 3) ? makeVisible(3, game.coinUpgUnlocked[i], true, constants.value[5][i + 1]) : null : null;
-    },
-    textColor = function(i) {
-        return (game.coinUpgUnlocked[i]) ? constants.value[5][i].style.color = '#FFFFFF' : constants.value[5][i].style.color = '#000000';
-    },
-    borderColor = function(i) {
-        return (game.coinUpgUnlocked[i]) ? constants.value[5][i].style.borderColor = '#FFFFFF' : constants.value[5][i].style.borderColor = '000000';
-    },
-    color = function(i) {
-        return (game.coinUpgUnlocked[i]) ? constants.value[5][i].style.backgroundColor = '#000000' : (cu.canBuy(i)) ? constants.value[5][i].style.backgroundColor = '#c4c4c4' : constants.value[5][i].style.backgroundColor = '#FFFFFF';
-    }
-];
 
 window.onload = function() {
     loadGame();
@@ -69,13 +95,16 @@ function updateDisplay() {
     constants.value[4][3].innerText = scientificNotation(game.coinsPerSec);
     for (i = 0; i < 4; i++) { constants.value[10][i].innerText = (i == 2) ? "^" + scientificNotation(cu.effect(i)) : "x" + scientificNotation(cu.effect(i)); };
     (game.coinUpgUnlocked[3]) ? constants.value[1][2].innerText = "UP 3: Raise UP 1's effect to the power of " + scientificNotation(cu.effect(2)) + '.' : null;
-    for (i = 0; i < 4; i++) { for (j = 0; j < cuDisplay.length; j++) { cuDisplay[j](i); }};
+    for (i = 0; i < 4; i++) { for (j = 0; j < cu.display.length; j++) { cu.display[j](i); }};
+    mu.isDisplayed();
+    for (i = 0; i < 5; i++) { mu.display[i](); };
 };
 
 function initUI() {
-    for (i = 0; i < 4; i++) { game.coinUpgEffect[i] = new Decimal(game.coinUpgEffect[i]); };
+    for (i = 0; i < 4; i++) { game.coinUpgEffect[i] = new Decimal(cu.effect(i)); };
     const cuTitles = new Array('UP 1: Multiply coin gain per second based on current coins.', 'UP 2: Multiply coin gain per second by 2.', "UP 3: Raise UP 1's effect to the power of " + cu.effect(2) + '.', "UP 4: Multiply UP 3's effect based on UP 1's effect.");
-    const coinInfo = new Array('Coins:', scientificNotation(game.coins = new Decimal(game.coins)), 'Coins/s:', scientificNotation(game.coinsPerSec = new Decimal(game.coinsPerSec)));
+    const machineInfo = new Array('Machine Parts:', scientificNotation(game.machineParts = new Decimal(game.machineParts)), '/s:', scientificNotation(game.machinePartsPerSec = new Decimal(game.machinePartsPerSec)));
+    const coinInfo = new Array('Coins:', scientificNotation(game.coins = new Decimal(game.coins)), '/s:', scientificNotation(game.coinsPerSec = new Decimal(game.coinsPerSec)));
     const tabTitles = new Array('Coin Upgrades', 'Machine Upgrades', 'Settings', 'Changelog');
     const settingsTitles = new Array('Save Game', 'Reset Game');
     const settingsMethods = new Array(saveGame(), resetGame());
@@ -111,6 +140,11 @@ function initUI() {
     for (i = 0; i < 4; i++) { constants.value[9][i].innerText = 'Effect:'; };
 
     constants.value[10] = document.getElementsByClassName('cueffect');
+
+    constants.value[11] = document.getElementsByClassName('machinecontainer');
+
+    constants.value[12] = document.getElementsByClassName('machineinfo');
+    for (i = 0; i < 4; i++) { constants.value[12][i].innerText = machineInfo[i]; };
 };
 
 function coinUpgrade(i) {
@@ -121,14 +155,13 @@ function coinUpgrade(i) {
 }}};
 
 function scientificNotation(variable) {
-    var string;
     if (variable >= 1000) {
         var exponent = (Math.floor(Math.log10(Math.abs(variable))));
         var mantissa = (variable / Math.pow(10, exponent));
-        string = mantissa.toFixed(2) + "e" + exponent;
+        var string = mantissa.toFixed(2) + "e" + exponent;
     }
     else {
-        string = variable.toFixed(2);
+        var string = variable.toFixed(2);
     };
     return string;
 };
@@ -161,6 +194,14 @@ function makeVisible(switchVar, var1, var2, id) {
             break;
         case 4:
             if (var1 != var2) {
+                id.style.display = "inline-block";
+            }
+            else {
+                id.style.display = "none";
+            };
+            break;
+        case 5:
+            if (var1) {
                 id.style.display = "inline-block";
             }
             else {
