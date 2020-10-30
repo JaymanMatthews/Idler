@@ -1,4 +1,4 @@
-var game = { coins: 900, machineParts: 0, coinsPerSec: 1, machinePartsPerSec: 0, coinUpgUnlocked: [false, false, false, false], muUnlocked: false, coinUpgEffect: [1, 2, 1.25, 1] };
+var game = { coins: 0, machineParts: 0, coinsPerSec: 1, machinePartsPerSec: 0, coinUpgUnlocked: [false, false, false, false], muUnlocked: false, coinUpgEffect: [1, 2, 1.25, 1] };
 
 var cu = {
     cost: function(i) {
