@@ -7,6 +7,14 @@ var cu = {
     effect: function(i) {
         return game.coinUpgEffect[i];
     },
+    upgrade: function(i) {
+        return function() {
+            if (cu.canBuy(i) && game.coinUpgUnlocked[i] == false) {
+                game.coinUpgUnlocked[i] = true;
+                game.coins = game.coins.sub(constants.coinUpgCost[i]);
+            };
+        };
+    },
     canBuy: function(i) {
         return game.coins >= constants.coinUpgCost[i];
     },
@@ -67,15 +75,38 @@ var mu = {
     ]
 };
 
+var notations = {
+    isValid: function(x) {
+        return x >= 1000;
+    },
+    baseString: function(x) {
+        return x.toFixed(2)
+    },
+    scientific: function(value) {
+        var string;
+        if (notations.isValid(value)) {
+            var exponent = (Math.floor(Math.log10(Math.abs(value))));
+            var mantissa = (value / Math.pow(10, exponent));
+            string = mantissa.toFixed(2) + "e" + exponent;
+        }
+        else {
+            string = notations.baseString(value);
+        };
+        return string;
+    }
+};
+
 var constants = { updateInterval: 33, saveInterval: 15000, coinUpgCost: [10, 50, 150, 500], base: [new Decimal(game.coinsPerSec), new Decimal(cu.effect(0)), new Decimal(cu.effect(2))], value: [] };
+
+var gameLoops = {
+    updateLoop: setInterval(tick(), constants.updateInterval),
+    saveLoop: setInterval(saveGame(), constants.saveInterval)
+};
 
 window.onload = function() {
     loadGame();
     initUI();
 };
-
-setInterval(tick(), constants.updateInterval);
-setInterval(saveGame(), constants.saveInterval);
 
 function tick() {
     return function() {
@@ -92,10 +123,10 @@ function updateGame() {
 };
 
 function updateDisplay() {
-    constants.value[4][1].innerText = scientificNotation(game.coins);
-    constants.value[4][3].innerText = scientificNotation(game.coinsPerSec);
-    for (i = 0; i < 4; i++) { constants.value[10][i].innerText = (i == 2) ? "^" + scientificNotation(cu.effect(i)) : "x" + scientificNotation(cu.effect(i)); };
-    (game.coinUpgUnlocked[3]) ? constants.value[1][2].innerText = "UP 3: Raise UP 1's effect to the power of " + scientificNotation(cu.effect(2)) + '.' : null;
+    constants.value[4][1].innerText = notations.scientific(game.coins);
+    constants.value[4][3].innerText = notations.scientific(game.coinsPerSec);
+    for (i = 0; i < 4; i++) { constants.value[10][i].innerText = (i == 2) ? "^" + notations.scientific(cu.effect(i)) : "x" + notations.scientific(cu.effect(i)); };
+    (game.coinUpgUnlocked[3]) ? constants.value[1][2].innerText = "UP 3: Raise UP 1's effect to the power of " + notations.scientific(cu.effect(2)) + '.' : null;
     for (i = 0; i < 4; i++) { for (j = 0; j < cu.display.length; j++) { cu.display[j](i); }};
     mu.isDisplayed();
     for (i = 0; i < 6; i++) { mu.display[i](); };
@@ -104,8 +135,8 @@ function updateDisplay() {
 function initUI() {
     for (i = 0; i < 4; i++) { game.coinUpgEffect[i] = new Decimal(cu.effect(i)); };
     const cuTitles = new Array('UP 1: Multiply coin gain per second based on current coins.', 'UP 2: Multiply coin gain per second by 2.', "UP 3: Raise UP 1's effect to the power of " + cu.effect(2) + '.', "UP 4: Multiply UP 3's effect based on UP 1's effect.");
-    const machineInfo = new Array('Machine Parts:', scientificNotation(game.machineParts = new Decimal(game.machineParts)), '/s:', scientificNotation(game.machinePartsPerSec = new Decimal(game.machinePartsPerSec)));
-    const coinInfo = new Array('Coins:', scientificNotation(game.coins = new Decimal(game.coins)), '/s:', scientificNotation(game.coinsPerSec = new Decimal(game.coinsPerSec)));
+    const machineInfo = new Array('Machine Parts:', notations.scientific(game.machineParts = new Decimal(game.machineParts)), '/s:', notations.scientific(game.machinePartsPerSec = new Decimal(game.machinePartsPerSec)));
+    const coinInfo = new Array('Coins:', notations.scientific(game.coins = new Decimal(game.coins)), '/s:', notations.scientific(game.coinsPerSec = new Decimal(game.coinsPerSec)));
     const tabTitles = new Array('Coin Upgrades', 'Machine Upgrades', 'Settings', 'Changelog');
     const settingsTitles = new Array('Save Game', 'Reset Game');
     const settingsMethods = new Array(saveGame(), resetGame());
@@ -121,13 +152,13 @@ function initUI() {
     for (i = 0; i < 4; i++) { constants.value[2][i].innerText = 'Cost:'; };
 
     constants.value[3] = document.getElementsByClassName('cucosts');
-    for (i = 0; i < 4; i++) { constants.value[3][i].innerText = scientificNotation(cu.cost(i)); };
+    for (i = 0; i < 4; i++) { constants.value[3][i].innerText = notations.scientific(cu.cost(i)); };
 
     constants.value[4] = document.getElementsByClassName('coininfo');
     for (i = 0; i < 4; i++) { constants.value[4][i].innerText = coinInfo[i]; };
 
     constants.value[5] = document.getElementsByClassName('cubuttons');
-    for (i = 0; i < 4; i++) { constants.value[5][i].onclick = coinUpgrade(i); };
+    for (i = 0; i < 4; i++) { constants.value[5][i].onclick = cu.upgrade(i); };
 
     constants.value[6] = document.getElementsByClassName('tab');
     for (i = 0; i < 4; i++) { constants.value[6][i].innerText = tabTitles[i]; };
@@ -150,25 +181,6 @@ function initUI() {
 
     constants.value[13] = document.getElementsByClassName('credits');
     for (i = 0; i < 2; i++) { constants.value[13][i].innerText = creditsText[i]; };
-};
-
-function coinUpgrade(i) {
-    return function() {
-        if (cu.canBuy(i) && game.coinUpgUnlocked[i] == false) {
-            game.coinUpgUnlocked[i] = true;
-            game.coins = game.coins.sub(constants.coinUpgCost[i]);
-}}};
-
-function scientificNotation(variable) {
-    if (variable >= 1000) {
-        var exponent = (Math.floor(Math.log10(Math.abs(variable))));
-        var mantissa = (variable / Math.pow(10, exponent));
-        var string = mantissa.toFixed(2) + "e" + exponent;
-    }
-    else {
-        var string = variable.toFixed(2);
-    };
-    return string;
 };
 
 function makeVisible(switchVar, var1, var2, id) {

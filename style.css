@@ -38,7 +38,8 @@ body {
     background-color: #FFD700;
 }
 .containers {
-    margin: 3px;
+    margin-right: 3px;
+    margin-bottom: 3px;
     padding-left: 3px;
     padding-right: 3px;
 }
